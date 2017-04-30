@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Candidato";
+}
+
+@model testemeuspedidos.Models.HomeViewModel
+
+<div class="jumbotron">
+    <h1>Desenvolvedores</h1>
+    <p class="lead">
+        Responda o formulário abaixo com suas informações pessoais e qualificações.
+    </p>
+</div>
+
+<div id="content" class="container">
+    @using (Html.BeginForm("NovoCadastro", "Home", FormMethod.Post, new { @class = "form-horizontal col-md-6 col-md-offset-3" }))
+    {
+        <fieldset>
+            <legend>Dados do candidato</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Nome, new { @class = "label-control" })
+                @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", placeholder = "Nome" })
+                @Html.ValidationMessageFor(m => m.Nome, string.Empty, new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "label-control" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail" })
+                @Html.ValidationMessageFor(m => m.Email, string.Empty, new { @class = "text-danger" })
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Avalie seu conhecimento de 0 a 10 nos seguintes itens</legend>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.HTML, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.HTML)
+                @Html.ValidationMessageFor(m => m.HTML, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.CSS, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.CSS)
+                @Html.ValidationMessageFor(m => m.CSS, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.Javascript, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.Javascript)
+                @Html.ValidationMessageFor(m => m.Javascript, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.Python, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.Python)
+                @Html.ValidationMessageFor(m => m.Python, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.Django, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.Django)
+                @Html.ValidationMessageFor(m => m.Django, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.DesenvolvimentoIOS, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.DesenvolvimentoIOS)
+                @Html.ValidationMessageFor(m => m.DesenvolvimentoIOS, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+            <div class="form-group slider-control">
+                @Html.LabelFor(m => m.DesenvolvimentoAndroid, new { @class = "label-control" })
+                @Html.HiddenFor(m => m.DesenvolvimentoAndroid)
+                @Html.ValidationMessageFor(m => m.DesenvolvimentoAndroid, string.Empty, new { @class = "text-danger" })
+                <div class="slider"></div>
+            </div>
+        </fieldset>
+            <br />
+            <button type="submit" class="btn btn-info col-md-6 col-md-offset-3 ">Enviar</button>
+            }
+
+            <script type="text/javascript">
+                $(".slider").slider({
+                    range: "min",
+                    value: 0,
+                    min: 0,
+                    max: 10,
+                    step: 1,
+                    slide: function (event, ui) {
+                        $(this).prev().prev().val(ui.value);
+                    }
+                }).each(function (a, b) {
+                    // Get the options for this slider
+                    var opt = $(this).data().uiSlider.options;
+
+                    // Get the number of possible values
+                    var vals = opt.max - opt.min;
+
+                    // Space out values
+                    for (var i = opt.min; i <= opt.max; i++) {
+                        var el = $('<label>' + (i) + '</label>').css('left', (i / vals * 100) + '%');
+                        $(b).append(el);
+                    }
+
+                });
+
+                $(document).ready(function () {
+                    $('.slider').each(function () {
+                        $(this).slider("value", $(this).prev().prev().val());
+                    })
+                });
+            </script>

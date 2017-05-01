@@ -39,6 +39,9 @@ namespace testemeuspedidos.Models
         [Range(0, 10, ErrorMessage = "O valor precisa estar no intervalo de 0 a 10")]
         public int? DesenvolvimentoAndroid { get; set; }
 
+        /// <summary>
+        /// Verifica os perfis de desenvolvedor que o candidato se enquadra baseado nas pontuações que ele escolheu para cada tecnologia.
+        /// </summary>
         public void ProcessarCandidatura()
         {
             var nenhumPerfil = true;
@@ -65,7 +68,12 @@ namespace testemeuspedidos.Models
             }
         }
 
-        private bool TemPontuacaoMinima(params int?[] conhecimentos)
+        /// <summary>
+        /// Verifica se o candidato possui pontuação mínima em todos os conhecimentos passados por parâmetro.
+        /// </summary>
+        /// <param name="conhecimentos">Os conhecimentos de cada perfil.</param>
+        /// <returns></returns>
+        public bool TemPontuacaoMinima(params int?[] conhecimentos)
         {
             return conhecimentos.All(w => w.HasValue && w.Value >= 7 && w.Value <= 10);
         }

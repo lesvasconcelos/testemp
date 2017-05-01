@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using testemeuspedidos;
 using testemeuspedidos.Controllers;
+using testemeuspedidos.Models;
 
 namespace testemeuspedidos.Tests.Controllers
 {
@@ -13,15 +14,26 @@ namespace testemeuspedidos.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void DeveRetornarViewNaoNulaParaActionIndex()
         {
-            // Arrange
-            HomeController controller = new HomeController();
+            var controller = new HomeController();
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = controller.Index() as ViewResult;
 
-            // Assert
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void DeveRetornarViewNaoNulaParaActionNovoCadastroComModelValida()
+        {
+            var controller = new HomeController();
+
+            var result = controller.NovoCadastro(new HomeViewModel
+            {
+                Nome = "abc",
+                Email = "teste@teste.com",
+            }) as ViewResult;
+
             Assert.IsNotNull(result);
         }
     }
